@@ -210,6 +210,13 @@ function check_product()
         echo "Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
+    if (echo -n $1 | grep -q -e "^cygnus_") ; then
+        CYGNUS_BUILD=$(echo -n $1 | sed -e 's/^cygnus_//g')
+    else
+        CYGNUS_BUILD=
+    fi
+    export CYGNUS_BUILD
+
         TARGET_PRODUCT=$1 \
         TARGET_BUILD_VARIANT= \
         TARGET_BUILD_TYPE= \
@@ -876,6 +883,8 @@ function lunch()
     fi
 
     [[ -n "${ANDROID_QUIET_BUILD:-}" ]] || echo
+
+    fixup_common_out_dir
 
     set_stuff_for_environment
     [[ -n "${ANDROID_QUIET_BUILD:-}" ]] || printconfig
