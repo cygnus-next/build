@@ -411,7 +411,7 @@ FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 $(call project-set-path-variant,ril,TARGET_RIL_VARIANT,hardware/ril)
 
 ifneq ($(CYGNUS_BUILD),)
-include vendor/cygnus/config/BoardConfigCygnus.mk
+include vendor/cygnus/configs/BoardConfigCygnus.mk
 endif
 
 # The build system exposes several variables for where to find the kernel
@@ -1321,6 +1321,6 @@ DEFAULT_DATA_OUT_MODULES := ltp $(ltp_packages) $(kselftest_modules)
 RECORD_ALL_DEPS :=$= $(filter true,$(RECORD_ALL_DEPS))
 
 # Include any vendor specific config.mk file
--include vendor/*/build/core/config.mk
+-include vendor/cygnus/build/core/config.mk
 
 include $(BUILD_SYSTEM)/dumpvar.mk
